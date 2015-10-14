@@ -1,5 +1,5 @@
 /**
- * Created by Xingguang on 2015/9/17.
+ * Created by Xingguang on 2015/10/14.
  */
 var container;
 var camera, controls, stats, scene, renderer;
@@ -18,12 +18,12 @@ function init () {
     //Scene
     scene = new THREE.Scene();
     //Camera
-    camera = new THREE.PerspectiveCamera(45,canvasRatio, 1, 100000);
+    camera = new THREE.PerspectiveCamera(45,canvasRatio, 1, 900000000);
     scene.add(camera);
     camera.position.z=900
     //Renderer
     if (Detector.webgl )  renderer = new THREE.WebGLRenderer( {antialias:true}); else  renderer = new THREE.CanvasRenderer();
-    renderer.setClearColor( 0xffffff, 1 );
+    renderer.setClearColor( 0, 1 );
     renderer.setSize( canvasWidth, canvasHeight);
     container = document.body;
     container.appendChild(renderer.domElement);
@@ -38,15 +38,15 @@ function init () {
 
     //Geometry
     var radius = 100;
-    for(i=0;i<6;i++) {
-        var material_thick = new THREE.MeshBasicMaterial({color: 0xff0000,wireframe:true,transparent: true,opacity:0.5});
-        var material_thin = new THREE.MeshBasicMaterial({color: 0x0000ff,wireframe:true});
+    for(i=0;i<10;i++) {
+        var material_thick = new THREE.MeshBasicMaterial({color:Math.floor((Math.random() * 105+150))*255*255 + Math.floor((Math.random() * 105+150))*255 + Math.floor((Math.random() * 5+50))*255*255,wireframe:true,transparent: true,opacity:0.5});
+        var material_thin = new THREE.MeshBasicMaterial({color: Math.floor((Math.random() * 205+50))*255*255 + Math.floor((Math.random() * 205+50))*255 + Math.floor((Math.random() * 5+150))*255*255,wireframe:true});
         var oct_geo = new THREE.OctahedronGeometry(radius * 3 / 2);
         var hex_geo = new THREE.BoxGeometry(radius, radius, radius);
         scene.add(new THREE.Mesh(oct_geo, material_thin));
         scene.add(new THREE.Mesh(hex_geo, material_thick));
 
-        radius = radius * 3/2
+        radius = radius * 3
     }
 }
 function render() {
